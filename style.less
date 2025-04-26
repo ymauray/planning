@@ -16,20 +16,26 @@ body {
 
 .planner-header {
   display: flex;
-  justify-content: space-between;
   align-items: center;
   padding-bottom: 1rem;
   border-bottom: 1px solid #eee;
   margin-bottom: 1rem;
-  gap: 10px; /* Add gap between buttons and title */
+  gap: 10px; // Gap between items
 
-  h2 {
+  /* --- Desktop Order: Précédent | [Month Year] | Suivant | Aujourd'hui --- */
+  /* Achieved using flexbox 'order' property */
+  #prev-week { order: 1; flex-shrink: 0; }
+  #week-display {
+    order: 2;
+    flex-grow: 1; // Allow title to take space
+    text-align: center; // Center title
     margin: 0;
     font-size: 1.5em;
-    text-align: center;
-    flex-grow: 1; // Allow title to take space
     text-transform: capitalize; // Ensure month name is capitalized
   }
+  #next-week { order: 3; flex-shrink: 0; }
+  #today-button { order: 4; flex-shrink: 0; }
+
 
   button {
     padding: 0.5em 1em;
@@ -39,10 +45,37 @@ body {
     border-radius: 4px;
     cursor: pointer;
     transition: background-color 0.2s;
-    flex-shrink: 0; /* Prevent buttons from shrinking */
 
     &:hover {
       background-color: #0056b3;
+    }
+  }
+
+  /* --- Mobile Styles --- */
+  @media (max-width: 600px) { /* Adjust breakpoint as needed */
+    flex-direction: row; // Keep as row
+    flex-wrap: wrap; // Allow items to wrap to the next line
+    justify-content: center; // Center the wrapped items (the button row)
+    align-items: stretch; // Stretch items to fill width (useful for buttons)
+    gap: 10px; // Gap between wrapped items
+
+    /* Mobile Order: [Month Year] (above) | Précédent | Aujourd'hui | Suivant (on one line, equal width) */
+    #week-display {
+      order: -1; // Place title first
+      width: 100%; // Make title take full width on its line
+      text-align: center;
+      margin-bottom: 10px;
+      flex-grow: 0; // Don't grow on mobile
+    }
+
+    button {
+      order: initial; // Reset button order for mobile (they will appear after h2 in source order)
+      flex-grow: 1; // Allow buttons to grow to fill space
+      flex-basis: 0; // Distribute space equally among buttons
+      min-width: 0; // Prevent content from forcing minimum width
+      padding: 0.8em 0.5em; // Adjust padding
+      margin: 0; // Remove any default margin that might interfere
+      flex-shrink: 1; // Allow buttons to shrink on mobile if needed
     }
   }
 }
@@ -107,6 +140,23 @@ body {
             font-size: 0.9em;
         }
     }
+
+    /* Mobile adjustments for day header */
+    @media (max-width: 600px) {
+        flex-direction: column; /* Stack title and inputs vertically */
+        align-items: stretch; /* Stretch items */
+        gap: 10px; /* Space between title and inputs */
+
+        .day-title {
+            margin-right: 0; /* Remove right margin */
+            text-align: center; /* Center day title */
+        }
+
+        .word-inputs {
+            justify-content: space-around; /* Distribute inputs */
+            gap: 10px; /* Adjust gap */
+        }
+    }
   }
 
   .day-content {
@@ -162,7 +212,24 @@ body {
            margin-right: initial;
            gap: initial;
        }
+       /* Mobile adjustments for weekend header */
+       @media (max-width: 600px) {
+           text-align: center; /* Center weekend day title */
+       }
     }
+  }
+
+  /* Mobile: Stack weekend days vertically */
+  @media (max-width: 600px) {
+      flex-direction: column;
+      border-bottom: none; /* Remove border from the row */
+      .day-column {
+          border-right: none; /* Remove border between Sat and Sun */
+          border-bottom: 1px solid #eee; /* Add border back between stacked days */
+          &:last-child {
+              border-bottom: none; /* Remove border on the very last day */
+          }
+      }
   }
 }
 
@@ -174,4 +241,9 @@ body {
 h1, .card, .read-the-docs, .logo {
   // Remove or adjust default Vite demo styles
   display: none; // Hide default Vite content for now
+}
+
+// Remove unused rule
+.button-wrapper {
+    display: contents;
 }
