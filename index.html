@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Planificateur Hebdomadaire</title> <!-- Updated title to French -->
+    <link rel="stylesheet" type="text/less" href="/style.less" />
+    <script>
+      // Trigger Less.js compilation (Vite handles this automatically in dev)
+      // In a production build, Vite compiles Less to CSS.
+    </script>
+  </head>
+  <body>
+    <div id="app">
+      <header class="planner-header">
+        <button id="prev-week">Précédent</button>
+        <button id="today-button">Aujourd'hui</button> <!-- Added Today button -->
+        <h2 id="week-display"></h2> <!-- Title will be set by JS -->
+        <button id="next-week">Suivant</button>
+      </header>
+      <main class="week-view">
+        <!-- Day columns will be added here by JS -->
+      </main>
+    </div>
+    <script type="module" src="/main.js"></script>
+  </body>
+</html>

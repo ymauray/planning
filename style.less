@@ -1,0 +1,177 @@
+// Reset and basic styles (can be expanded)
+body {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  margin: 0;
+  background-color: #f4f4f4;
+  color: #333;
+}
+
+#app {
+  max-width: 800px; // Adjusted max-width for a single column layout
+  margin: 2rem auto;
+  padding: 1rem;
+  background-color: #fff;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.planner-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #eee;
+  margin-bottom: 1rem;
+  gap: 10px; /* Add gap between buttons and title */
+
+  h2 {
+    margin: 0;
+    font-size: 1.5em;
+    text-align: center;
+    flex-grow: 1; // Allow title to take space
+    text-transform: capitalize; // Ensure month name is capitalized
+  }
+
+  button {
+    padding: 0.5em 1em;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    flex-shrink: 0; /* Prevent buttons from shrinking */
+
+    &:hover {
+      background-color: #0056b3;
+    }
+  }
+}
+
+.week-view {
+  display: flex; // Use flexbox for the main week view
+  flex-direction: column; // Stack days vertically
+  gap: 0; // No gap between rows needed if using borders
+  border: 1px solid #ddd;
+  background-color: #f9f9f9;
+}
+
+.day-column {
+  // Styles for individual day columns (Mon-Fri and days within weekend)
+  padding: 0.8rem 1rem; // Adjusted padding
+  border-bottom: 1px solid #eee; // Separator lines between days (rows)
+  display: flex; // Use flexbox for day content layout
+  flex-direction: column; // Stack header and content vertically
+
+  &:last-child {
+    // This applies to the last .day-column overall (Sunday)
+    border-bottom: none;
+  }
+
+  .day-header {
+    font-weight: bold;
+    padding-bottom: 0.5rem;
+    margin-bottom: 0.5rem;
+    border-bottom: 1px solid #eee;
+    font-size: 1em; // Slightly larger font for day header
+    text-align: left; // Align header text to the left
+
+    // Flexbox for weekday headers to align title and inputs
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap; /* Allow wrapping on smaller screens */
+
+    .day-title {
+        flex-shrink: 0; /* Prevent title from shrinking */
+        margin-right: 10px; /* Space between title and inputs */
+    }
+
+    .word-inputs {
+        display: flex;
+        gap: 15px; /* Space between the two input labels */
+        align-items: center;
+
+        label {
+            font-weight: normal; /* Labels shouldn't be bold */
+            font-size: 0.9em; /* Slightly smaller font for labels */
+            display: flex;
+            align-items: center;
+            gap: 5px; /* Space between label text and input field */
+        }
+
+        input[type="number"] {
+            width: 60px; /* Fixed width for number inputs */
+            padding: 2px 5px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            font-size: 0.9em;
+        }
+    }
+  }
+
+  .day-content {
+    // Styles for the content area within each day
+    flex-grow: 1; // Allow content area to take available space
+    display: flex; // Use flexbox for content
+    flex-direction: column; // Stack items vertically within content
+    padding-top: 0.5rem; // Add some space above the textarea
+  }
+
+  .day-text {
+    width: 100%; // Make textarea take full width
+    flex-grow: 1; // Allow textarea to take available vertical space
+    min-height: 100px; // Minimum height for the textarea
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box; // Include padding and border in the element's total width and height
+    font-family: inherit; // Use the same font as the body
+    font-size: 1em;
+    resize: vertical; // Allow vertical resizing only
+    outline: none; // Remove default outline on focus
+
+    &:focus {
+        border-color: #007bff; // Highlight border on focus
+        box-shadow: 0 0 5px rgba(0, 123, 255, 0.25);
+    }
+  }
+}
+
+.weekend-row {
+  display: flex; // Use flexbox to place Saturday and Sunday side-by-side
+  border-bottom: 1px solid #eee; // Border for the entire weekend row
+
+  .day-column {
+    flex: 1; // Make both Saturday and Sunday columns take equal width
+    border-bottom: none; // Remove individual day-column bottom borders within the weekend row
+    border-right: 1px solid #eee; // Add a right border between Saturday and Sunday
+
+    &:last-child {
+      border-right: none; // Remove the right border on the last day (Sunday)
+    }
+
+    .day-header {
+       border-bottom: 1px solid #eee; // Keep the header border
+       // Reset flexbox for weekend headers
+       display: block;
+       justify-content: initial;
+       align-items: initial;
+       flex-wrap: initial;
+       .day-title, .word-inputs {
+           display: initial;
+           margin-right: initial;
+           gap: initial;
+       }
+    }
+  }
+}
+
+
+// Remove default Vite styles if they conflict
+:root {
+  // Keep or remove color scheme vars as needed
+}
+h1, .card, .read-the-docs, .logo {
+  // Remove or adjust default Vite demo styles
+  display: none; // Hide default Vite content for now
+}
